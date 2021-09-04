@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 
@@ -6,7 +8,7 @@ import 'package:dart_bigquery/clients/big_query_client.dart';
 void main() async {
   final handler = Pipeline().addHandler(_queryRequest);
 
-  final server = await shelf_io.serve(handler, '0.0.0.0', 8080);
+  final server = await shelf_io.serve(handler, InternetAddress.anyIPv4, 8080);
   server.autoCompress = true;
 
   print('Serving at http://${server.address.host}:${server.port}');
